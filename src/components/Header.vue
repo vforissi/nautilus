@@ -1,12 +1,16 @@
 <template>
     <div id="nav">
       <div class="logo">
-        <img class="logoImg" alt="nautilus icon" src="@/assets/logo.jpg" @click="redirect('/home')"/>
+        <img class="logoImg" alt="nautilus icon" src="@/assets/logo.jpg"/>
         <h1 class="title">NAUTILUS</h1>
       </div>
-      <router-link to="/list">List</router-link> |
-      <router-link to="/new">New</router-link> | 
-      <a @click="logout">Logout</a>
+      <div v-if="this.$route.path !== '/invite'">
+        <router-link v-if="user.type === 'institution'" to="/">List</router-link>
+        <span v-if="user.type === 'institution'">|</span>
+        <router-link v-if="user.type === 'institution'" to="/new">New</router-link>
+        <span v-if="user.type === 'institution'">|</span>
+        <a @click="logout">Logout</a>
+      </div>
     </div>
 </template>
 
@@ -15,12 +19,22 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 
 export default {
+  beforeCreate() {
+  },
     methods: {
         logout: function() {
             firebase.auth().signOut().then(() => {
                 this.$router.replace('gate')
             });
+        },
+        redirect: function(root) {
+            this.$router.push(root);
         }
+    },
+    computed: {
+      user() {
+        return this.$store.state.user
+      }
     }
 }
 </script>
@@ -34,6 +48,10 @@ export default {
 #nav a {
   font-weight: bold;  
   color: #2c3e50;
+}
+
+#nav span {
+  padding: 5px;
 }
 
 #nav a:hover {

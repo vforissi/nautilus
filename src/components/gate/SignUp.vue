@@ -11,7 +11,7 @@
             <span> | </span>
             <span class="type selected">Candidate</span>
         </div>
-        <input v-if="type === 'institution'" type="text" v-model="companyName" placeholder="Company">
+        <input v-if="type === 'institution'" type="text" v-model="name" placeholder="Company">
         <input type="text" v-model="email" placeholder="Email">
         <input type="password" v-model="password" placeholder="Password"><br>
         <button @click="signUp">Sign Up</button>
@@ -47,7 +47,7 @@ export default {
             type: 'institution',
             email: '', 
             password: '',
-            companyName: '',
+            name: '',
             phone: '',
         };
     },
@@ -58,12 +58,11 @@ export default {
                     const uid = credentials.user.uid;
                     let user = {
                         creationTimestamp: Date.now(),
+                        name: this.name,
                         type: this.type,
                         email: this.email,
                         uid,
                     };
-                    if (this.type === 'institution')
-                        user.companyName = this.companyName;
                     firebase.firestore().collection("user").doc(uid).set(user)
                     this.$store.commit('set_user', user);
                     this.$router.replace('/list')
