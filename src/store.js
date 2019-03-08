@@ -7,15 +7,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    links: Array(),
     user: '',
+    applicants: Array(),
+    links: Array(),
   },
   mutations: {
     set_user: (state, user) => state.user = user,
-    add_link: (state, link) => {
-      //console.log(state.links)
-      state.links.push(link)
-    }
+    add_applicant: (state, applicant) => state.applicants.push(applicant),
+    add_link: (state, id) => state.links.push(id)
   },
   actions: {
 

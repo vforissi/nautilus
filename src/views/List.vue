@@ -2,27 +2,29 @@
     <div>
         <h1>{{user.type}}</h1>
         <Profile v-if="user.type === 'candidate'"/>
-        <div v-else>
-            The list!!!
-        </div>
+        <Cards v-else/>
     </div>
 </template>
 
 <script>
 import Profile from './Profile.vue'
+import Cards from '@/components/Cards.vue'
 
 export default {
     components: {
-        Profile
+        Profile,
+        Cards
     },
     computed: {
         user() {
             return this.$store.state.user
-        }
+        },
     }
 }
 </script>
 
 <style scoped>
-    
+    .card {
+        display: flex;
+    }
 </style>

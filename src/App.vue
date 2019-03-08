@@ -17,12 +17,14 @@
       const db = firebase.firestore();
 
       if (currentUser) {
+        // get user info
         await db.collection("user").doc(currentUser.uid).get()
           .then((doc) => {
           this.$store.commit('set_user', doc.data());
         })
-      
-        db.collection("link").where("institution", "==", currentUser.uid).get()
+
+        // get all links btw applicants and institutions
+        await db.collection("link").where("institution", "==", currentUser.uid).get()
           .then((docs) => {
             if (!docs.empty) {
               docs.forEach((doc) => {
@@ -31,15 +33,35 @@
               })
             }
           })
+
+        // get all aplicants and add them to a list for reading
+        this.links.forEach((link) => {
+          db.collection("user").doc(link).get()
+            .then((doc) => {
+              const applicant = doc.data();
+              if (doc.data() !== undefined)
+                this.$store.commit("add_applicant", applicant)
+              else
+                this.$store.commit("add_applicant", link)
+            })
+        })
       }
     },
     components: {
       Header
     },
+    data() {
+      return {
+        
+      }
+    },
     computed: {
       user() {
         return this.$store.state.user
-      }
+      },
+      links() {
+        return this.$store.state.links
+      },
     }
   }
 </script>

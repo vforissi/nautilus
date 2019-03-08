@@ -65,7 +65,7 @@ export default {
                     };
                     firebase.firestore().collection("user").doc(uid).set(user)
                     this.$store.commit('set_user', user);
-                    this.$router.replace('/list')
+                    this.$router.replace('/')
                 },
                 (err) => {
                     alert('Oops. ' + err.message);
