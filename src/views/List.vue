@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{user.type}}</h1>
+        <h1>{{user.type === 'institution' ? "Applicant List" : "My Profile"}}</h1>
         <Profile v-if="user.type === 'candidate'"/>
         <Cards v-else/>
     </div>

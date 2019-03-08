@@ -42,7 +42,8 @@ export default {
 <style scoped>
 
 #nav {
-  padding: 30px;
+  padding: 10px;
+  margin: 10px;
 }
 
 #nav a {
@@ -69,7 +70,6 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 10px;
 }
 .title {
   border: 0px solid deepskyblue;
