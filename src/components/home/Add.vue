@@ -39,20 +39,27 @@ export default {
                     // if applicant is already registered, simply add
                     if (!docs.empty) {
                         docs.forEach((doc) => {
+                            const user = doc.data()
+
                             for (let i = 0; i < this.links.length; i++) {
-                                if (this.links[i] === doc.get('uid')) {
+                                if (this.links[i] === user.uid) {
                                     alert("You already added this applicant.")
                                     added = true;
                                 }
                             }
                             if (!added) {
-                                const link = { institution: uid, candidate: doc.get('uid') };
+                                const link = { institution: uid, candidate: user.uid };
                                 linkRef.add(link)
                                     .then((doc) => {
                                         linkRef.doc(doc.id).update({ docId: doc.id })
                                     })
-                                this.links.push(doc.get('uid'));
+                                this.links.push(user.uid);
                                 this.addedCandidates.push(this.candidate);
+                                
+                                // add addded applicant to store
+                                let applicants = this.$store.state.applicants
+                                applicants.push(user)
+                                this.$store.commit("set_applicants", applicants)
                             }
                         })
                         this.candidate = '';
@@ -71,6 +78,11 @@ export default {
                         }
                         firebase.auth().sendSignInLinkToEmail(this.candidate, actionCodeSettings);
                         this.addedCandidates.push(this.candidate);
+                        // add invite to store (applicants)
+                        let applicants = this.$store.state.applicants
+                        applicants.push(this.candidate)
+                        this.$store.commit("set_applicants", applicants)
+                        // reset v-model
                         this.candidate = '';
                     }
                 })

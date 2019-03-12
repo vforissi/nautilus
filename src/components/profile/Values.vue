@@ -6,7 +6,7 @@
             <div class="instance" v-for="(item, index) in values.list" :key="index">
                 <h4>{{' N.' + (index + 1) + ' ' + item.value }} - {{Math.round((item.score / 70) * 100) }} %</h4>
                 <p>{{valueTitleDesc[item.value]}}</p>
-                <b-button v-b-modal.moreModal class="more_info" @click="showModal">more info</b-button>
+                <b-button v-b-modal.moreModal class="more_info">more info</b-button>
                 <b-modal id="moreModal" hide-footer :title="' N.' + (index + 1) + ' ' + item.value - Math.round((item.score / 70) * 100) + '%'" >
                     <p>{{ValueDesc[item.value]}}</p>
                 </b-modal>
