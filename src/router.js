@@ -7,8 +7,7 @@ import 'firebase/auth';
 //Adm,  
 //Values, Identity, Worldview,
 import Gate from './views/Gate.vue'
-import List from './views/List.vue'
-import New from './views/New.vue'
+import Home from './views/Home.vue'
 import Profile from './views/Profile.vue'
 import Invite from './views/Invite.vue'
 
@@ -34,16 +33,8 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'list',
-      component: List,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: '/new',
-      name: 'new',
-      component: New,
+      name: 'home',
+      component: Home,
       meta: {
         requiresAuth: true,
       },

@@ -2,13 +2,16 @@
     <div>
         <h1 class="mt-5">Values</h1>
         <!-- institutions filled-->
-        <div v-if="!editable && values.list" class="box">
+        <div v-if="values.list" class="box">
             <div class="instance" v-for="(item, index) in values.list" :key="index">
                 <h4>{{' N.' + (index + 1) + ' ' + item.value }} - {{Math.round((item.score / 70) * 100) }} %</h4>
-                <p>{{valueDesc[item.value]}}</p>
+                <p>{{valueTitleDesc[item.value]}}</p>
+                <b-button v-b-modal.moreModal class="more_info" @click="showModal">more info</b-button>
+                <b-modal id="moreModal" hide-footer :title="' N.' + (index + 1) + ' ' + item.value - Math.round((item.score / 70) * 100) + '%'" >
+                    <p>{{ValueDesc[item.value]}}</p>
+                </b-modal>
                 <p v-if="valueRules.text">For me to attain my value,<br> <strong>{{}}</strong></p>
             </div>
-            <div class="instance trans"/>
         </div>
         <!-- institution empty  -->
         <div v-else-if="!editable && !values.list" class="box empty">
@@ -23,14 +26,7 @@
             <h5 v-if="msgRes" class="saved_msg">✅ results saved</h5>
         </div>
         <!-- users filled -->
-        <div v-if="editable && values.list" class="box">
-            <div class="instance" v-for="(item, index) in values.list" :key="index">
-                <h4>{{' N.' + (index + 1) + ' ' + item.value }} - {{Math.round((item.score / 70) * 100) }} %</h4>
-                <p>{{valueDesc[item.value]}}</p>
-                <p v-if="valueRules.text">For me to attain my value,<br> <strong>{{/*add rule*/}}</strong></p>
-            </div>
-            <div class="instance trans"/>
-        </div>
+        
     </div>
 </template>
 
@@ -39,6 +35,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import ValueTest from '@/components/tests/ValueTest.vue'
+import ValueDesc from './additional_data/ValueDesc.js';
 
 export default {
     components: {
@@ -46,7 +43,7 @@ export default {
     },
     data() {
         return {
-            valueDesc: {
+            valueTitleDesc: {
                 'Aesthetic': 'Form, Harmony, Beauty, Balance',
                 'Economic': 'Money, Practical results, Return',
                 'Individualistic': 'Independence, Uniqueness',
@@ -55,6 +52,7 @@ export default {
                 'Regulatory': 'Structure, Order, Routine',
                 'Theoretical': 'Knowledge, Understanding',
             },
+            ValueDesc,
             msg: false,
             msgRes: false,
             values: Object(),
@@ -99,8 +97,11 @@ export default {
         showModal() {
             this.$refs.myModalRef.show()
         },
+        showMore() {
+            this.$refs.moreRef.show()
+        },
         hideModal() {
-            this.$refs.myModalRef.hide()
+            this.$refs.testModalRef.hide()
             this.msgRes = true;
             setTimeout(() => {
                 this.rmv();
@@ -137,9 +138,6 @@ export default {
         padding: 20px 40px;
         background-color: white;
         border: 1px solid #f7f7f7;
-    }
-    .trans{
-        background-color: #f7f7f7;
     }
     .empty {
         padding: 150px;

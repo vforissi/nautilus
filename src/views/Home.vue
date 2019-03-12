@@ -1,19 +1,24 @@
 <template>
     <div>
-        <h1 v-if="user.type === 'institution'">Applicant List</h1>
         <Profile v-if="user.type === 'candidate'"/>
-        <Cards v-else/>
+        <div v-else>
+            <Add />
+            <Cards/>
+        </div>
+
     </div>
 </template>
 
 <script>
 import Profile from './Profile.vue'
-import Cards from '@/components/Cards.vue'
+import Cards from '@/components/home/Cards.vue'
+import Add from '@/components/home/Add.vue'
 
 export default {
     components: {
         Profile,
-        Cards
+        Cards,
+        Add
     },
     computed: {
         user() {

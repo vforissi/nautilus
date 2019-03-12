@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div id="all">
+        <h3>Add new applicant</h3>
         <input v-model="candidate" placeholder="email"/>
         <button @click="createLink">add candidate</button>
         <p v-for="(candidate, index) in addedCandidates" :key="index">✅ {{ candidate }}</p>
@@ -79,13 +80,18 @@ export default {
 </script>
 
 <style scoped>
+    #all {
+        text-align: left;
+        margin: 20px 100px;
+    }
     input {
         padding: 10px;
-        margin: 10px;
         margin-bottom: 30px;
+        width: 80%;
     }
     button {
         padding: 10px;
+        margin-left: 10px;
     }
     p {
         color: rgb(0, 190, 0);

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h3>Applicant List</h3>
         <div v-for="(applicant, index) in applicants" :key="index" @click="openProfile(applicant)">
             <div v-if="typeof applicant === 'object'" class="card">
                 <img v-if="applicant.imgUrl" alt="Profile Picture" :src="applicant.imgUrl"/>
@@ -44,6 +45,10 @@ export default {
 </script>
 
 <style scoped>
+    h3 {
+        margin: 20px 100px;
+        text-align: left;
+    }
     .card {
         display: flex;
         flex-direction: row;

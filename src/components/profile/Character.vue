@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Character</h1>
+        <h1 class="mt-5">Character</h1>
         <div v-if="!editable && character" class="box">
             <div class="instance" v-for="(trait, index) in character" :key="index">
                 <h4>{{ trait.name + ' Trait' }}</h4>

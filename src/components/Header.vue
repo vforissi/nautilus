@@ -5,10 +5,6 @@
         <h1 class="title">NAUTILUS</h1>
       </div>
       <div v-if="this.$route.path !== '/invite'">
-        <router-link v-if="user.type === 'institution'" to="/">List</router-link>
-        <span v-if="user.type === 'institution'">|</span>
-        <router-link v-if="user.type === 'institution'" to="/new">New</router-link>
-        <span v-if="user.type === 'institution'">|</span>
         <a @click="logout">Logout</a>
       </div>
     </div>

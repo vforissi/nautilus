@@ -1,17 +1,17 @@
 <template>
     <div class="sign-up">
-        <p>Want to use Nautilus ?</p>
+        <h3>Create an account</h3>
+        <p class="mb-2">Want to use Nautilus ? Who are you ?</p>
         <div v-if="type === 'institution'" class="nav">
             <span class="type selected">Institution</span>
-            <span> | </span>
             <span class="type" @click="type='candidate'">Candidate</span>
         </div>
         <div v-if="type === 'candidate' " class="nav">
-            <span class="type" @click="type='institution'">Institution</span>
-            <span> | </span>
-            <span class="type selected">Candidate</span>
+            <span class="type" @click="type='institution'">Company</span>
+            <span class="type selected">User</span>
         </div>
-        <input type="text" v-model="name" placeholder="Company">
+        <input v-if="type === 'candidate'" type="text" v-model="name" placeholder="Name">
+        <input v-if="type === 'institution'" type="text" v-model="name" placeholder="Company">
         <input type="text" v-model="email" placeholder="Email">
         <input type="password" v-model="password" placeholder="Password"><br>
         <button @click="signUp">Sign Up</button>
@@ -118,13 +118,16 @@ export default {
 
     .nav span {
         font-weight: bold;
-        color: #2c3e50;
-        padding: 10px;
-        text-decoration: underline;
+        color: deepskyblue;
+        border: 1px solid deepskyblue;
+        background-color: white;
+        padding: 10px 30px;
+        width: 150px;
         cursor: pointer;
     }
 
     .nav .selected {
-        color: deepskyblue;
+        color: white;
+        background-color: deepskyblue;
     }
 </style>
