@@ -1,6 +1,6 @@
 <template>
     <div id="nav">
-      <div class="logo">
+      <div class="logo" @click="redirect('/')">
         <img class="logoImg" alt="nautilus icon" src="@/assets/logo.jpg"/>
         <h1 class="title">NAUTILUS</h1>
       </div>
@@ -42,6 +42,8 @@ export default {
 <style scoped>
 
 #nav {
+  display: flex;
+
   padding: 10px;
   margin: 10px;
 }
@@ -70,6 +72,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  cursor: pointer;
 }
 .title {
   border: 0px solid deepskyblue;

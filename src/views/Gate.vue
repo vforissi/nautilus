@@ -5,7 +5,7 @@
                 <img class="logoImg" alt="nautilus icon" src="@/assets/logo.jpg" @click="redirect('/home')"/>
                 <h1 class="title">NAUTILUS</h1>
             </div>
-            <h4>Nautilus is a simple profiling tool to learn more about your job candidates.</h4>
+            <h4>We analyse the psychology of your applicants.<br><br>Know better, Hire better.</h4>
         </div>
         <div class="forms">
             <Login/>

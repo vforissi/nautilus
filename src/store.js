@@ -10,11 +10,20 @@ export default new Vuex.Store({
     user: '',
     applicants: Array(),
     links: Array(),
+    valueRes: {
+      stage: 0,
+      answers: [],
+    },
+    valueRules: Object(),
+    values: Object(),
   },
   mutations: {
     set_user: (state, user) => state.user = user,
-    add_applicant: (state, applicant) => state.applicants.push(applicant),
-    add_link: (state, id) => state.links.push(id)
+    set_applicants: (state, applicants) => state.applicants = applicants,
+    set_links: (state, links) => state.links = links,
+    set_valueRes: (state, results) => state.valueRes = results,
+    set_values: (state, res) => state.values = res,
+    set_valueRules: (state, rules) => state.valueRules = rules,
   },
   actions: {
 

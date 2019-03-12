@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{user.type === 'institution' ? "Applicant List" : "My Profile"}}</h1>
+        <h1 v-if="user.type === 'institution'">Applicant List</h1>
         <Profile v-if="user.type === 'candidate'"/>
         <Cards v-else/>
     </div>
@@ -24,7 +24,5 @@ export default {
 </script>
 
 <style scoped>
-    .card {
-        display: flex;
-    }
+    
 </style>

@@ -11,7 +11,7 @@
             <span> | </span>
             <span class="type selected">Candidate</span>
         </div>
-        <input v-if="type === 'institution'" type="text" v-model="name" placeholder="Company">
+        <input type="text" v-model="name" placeholder="Company">
         <input type="text" v-model="email" placeholder="Email">
         <input type="password" v-model="password" placeholder="Password"><br>
         <button @click="signUp">Sign Up</button>

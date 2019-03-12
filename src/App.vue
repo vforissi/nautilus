@@ -9,42 +9,51 @@
   import firebase from 'firebase/app'
   import 'firebase/firestore'
   import 'firebase/auth'
+  import 'firebase/storage'
   import Header from '@/components/Header.vue'
 
   export default {
     async beforeCreate() {
-      const currentUser = firebase.auth().currentUser;
+      const user = firebase.auth().currentUser;
       const db = firebase.firestore();
 
-      if (currentUser) {
+      if (user) {
         // get user info
-        await db.collection("user").doc(currentUser.uid).get()
+        await db.collection("user").doc(user.uid).get()
           .then((doc) => {
           this.$store.commit('set_user', doc.data());
         })
 
         // get all links btw applicants and institutions
-        await db.collection("link").where("institution", "==", currentUser.uid).get()
+        let links = [];
+        await db.collection("link").where("institution", "==", user.uid).get()
           .then((docs) => {
             if (!docs.empty) {
               docs.forEach((doc) => {
                 const link = doc.data();
-                this.$store.commit("add_link", link.candidate)
+                links.push(link.candidate)
               })
             }
+            this.$store.commit("set_links", links)
           })
 
-        // get all aplicants and add them to a list for reading
-        this.links.forEach((link) => {
+        // get all applicants and add them to a list for reading
+        let applicants = [];
+        await this.links.forEach((link) => {
           db.collection("user").doc(link).get()
-            .then((doc) => {
-              const applicant = doc.data();
-              if (doc.data() !== undefined)
-                this.$store.commit("add_applicant", applicant)
-              else
-                this.$store.commit("add_applicant", link)
+            .then(async (doc) => {
+              let applicant = doc.data();
+              if (doc.data() !== undefined) {
+                if (!applicant.imgUrl) {
+                  applicant.imgUrl = "";
+                }
+                applicants.push(applicant)
+              }
+              else 
+                applicants.push(link) 
             })
         })
+        this.$store.commit("set_applicants", applicants)
       }
     },
     components: {

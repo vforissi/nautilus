@@ -1,17 +1,18 @@
 <template>
     <div>
         <div v-for="(applicant, index) in applicants" :key="index" @click="openProfile(applicant)">
-            <div v-if="typeof applicant === 'object'" class="card exists">
-                <img alt="Profile Picture" src="@/assets/pp-icon.png"/>
+            <div v-if="typeof applicant === 'object'" class="card">
+                <img v-if="applicant.imgUrl" alt="Profile Picture" :src="applicant.imgUrl"/>
+                <img v-else alt="Profile Picture" src="@/assets/pp-icon.png"/>
                 <div class="text">
                     <p>{{ applicant.name }}</p>
                 </div>
             </div>
-            <div v-else-if="typeof applicant === 'string'" class="card no_exist">
+            <div v-else-if="typeof applicant === 'string'" class="card">
                 <img alt="Profile Picture" src="@/assets/pp-icon.png"/>
                 <div class="text">
-                    <p><strong>{{ applicant }} ???</strong></p>
-                    <p class="why">This applicant hasn't answered your invitation yet.</p>
+                    <p><strong>{{ applicant }} - invitation sent</strong></p>
+                    <p class="why">This applicant hasn't created a profile yet.</p>
                 </div>
             </div>
         </div>
@@ -25,14 +26,19 @@ export default {
             return this.$store.state.applicants
         },
     },
+    data() {
+        return {
+            applicantsData: {}
+        }
+    },
     methods: {
         openProfile: function(applicant) {
             if(typeof applicant === 'string')
-                alert("The applicant hasn't created a profile yet !");
+                this.$router.push('/profile/random')
             else {
                 this.$router.push('/profile/' + applicant.uid)
             }
-        }
+        }, 
     }
 }
 </script>
@@ -43,9 +49,10 @@ export default {
         flex-direction: row;
         align-items: center;
         padding: 10px;
-        margin: 40px 80px;
+        margin: 40px 0px;
         background-color: #f7f7f7;
         cursor: pointer;
+        border: 0px;
     }
     img {
         flex: 1;
