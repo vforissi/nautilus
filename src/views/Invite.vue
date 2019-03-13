@@ -1,26 +1,4 @@
 <template>
-    
-        <!--
-        <div class="imageContainer">
-            <img 
-                v-if="!file" 
-                class="profileImage" 
-                alt="Add Profile Picture" 
-                src="./../assets/pp-icon.png" 
-            />
-            <img 
-                v-else 
-                :src="file"
-                alt="Add Profile Picture" 
-                class="profileImage" 
-            />
-            
-            <b-form-file v-model="file" class="mt-3" plain />
-            <img :src="file" class="profileImage"/>
-
-            <p class="mt-2">Selected file: <b>{{ file ? file.name : '' }}</b></p>
-        </div>
-        -->
     <div class="input_div">
         <h3>Register so you can start filling in your profile</h3>
         <input type="text" v-model="name" placeholder="Name"/>
@@ -95,7 +73,7 @@ export default {
         align-items: center;
     }
     .input_div>input {
-        width: 40%;
+        width: 80%;
         padding: 10px;
         margin: 10px;
     }
@@ -108,21 +86,11 @@ export default {
         border-radius: 10px;
     }
     
-/*
-    .imageContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+@media only screen and (min-width: 768px) {
+    .input_div>input {
+        width: 40%;
+        padding: 10px;
+        margin: 10px;
     }
-    .profileImage {
-        flex: 1;
-        margin: 10px 40px;
-        width: 200px;
-        height: 200px;
-        border: 1px solid lightgrey;
-        text-align: center;
-        border-radius: 50%;
-    }
-*/  
+} 
 </style>

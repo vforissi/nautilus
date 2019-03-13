@@ -6,10 +6,7 @@
             <div class="instance" v-for="(item, index) in values.list" :key="index">
                 <h4>{{' N.' + (index + 1) + ' ' + item.value }} - {{Math.round((item.score / 70) * 100) }} %</h4>
                 <p>{{valueTitleDesc[item.value]}}</p>
-                <b-button v-b-modal.moreModal class="more_info">more info</b-button>
-                <b-modal id="moreModal" hide-footer :title="' N.' + (index + 1) + ' ' + item.value - Math.round((item.score / 70) * 100) + '%'" >
-                    <p>{{ValueDesc[item.value]}}</p>
-                </b-modal>
+                <!--<p>{{ValueDesc[item.value]}}</p>-->
                 <p v-if="valueRules.text">For me to attain my value,<br> <strong>{{}}</strong></p>
             </div>
         </div>
@@ -34,7 +31,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import ValueTest from '@/components/tests/ValueTest.vue'
+import ValueTest from '@/components/profile/tests/ValueTest.vue'
 import ValueDesc from './additional_data/ValueDesc.js';
 
 export default {
@@ -97,8 +94,9 @@ export default {
         showModal() {
             this.$refs.myModalRef.show()
         },
-        showMore() {
-            this.$refs.moreRef.show()
+        showMore(value) {
+            console.log(value)
+            this.$refs.value.show()
         },
         hideModal() {
             this.$refs.testModalRef.hide()
@@ -133,14 +131,14 @@ export default {
         flex-direction: column;
     }
     .instance {
-        width: 70%;
+        width: 90%;
         margin: 20px 0px;
         padding: 20px 40px;
         background-color: white;
         border: 1px solid #f7f7f7;
     }
     .empty {
-        padding: 150px;
+        padding: 150px 0px;
     }
     .empty h3 {
         padding: 10px;
@@ -150,4 +148,16 @@ export default {
         color: rgb(0, 190, 0);
         margin: 20px;
     }
+@media only screen and (min-width: 768px) {
+    .instance {
+        width: 70%;
+        margin: 20px 0px;
+        padding: 20px 40px;
+        background-color: white;
+        border: 1px solid #f7f7f7;
+    }
+    .empty {
+        padding: 150px;
+    }
+}
 </style>

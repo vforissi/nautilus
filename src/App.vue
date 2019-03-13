@@ -85,3 +85,12 @@
   }
 </style>
 
+<style>
+  html {
+    height: 100%;
+  }
+  * {
+    box-sizing: border-box;
+  }
+</style>
+

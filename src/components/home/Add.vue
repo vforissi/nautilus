@@ -2,8 +2,8 @@
     <div id="all">
         <h3>Add new applicant</h3>
         <input v-model="candidate" placeholder="email"/>
-        <button @click="createLink">add candidate</button>
-        <p v-for="(candidate, index) in addedCandidates" :key="index">✅ {{ candidate }}</p>
+        <button @click="createLink">add applicant</button>
+        <p v-if="addedCandidate" :key="index">✅ {{ addedCandidate }}</p>
     </div>
 </template>
 
@@ -11,12 +11,13 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import { setTimeout } from 'timers';
 
 export default {
     data() {
         return {
             candidate: '',
-            addedCandidates: [],
+            addedCandidate: '',
         }
     },
     computed: {
@@ -54,8 +55,8 @@ export default {
                                         linkRef.doc(doc.id).update({ docId: doc.id })
                                     })
                                 this.links.push(user.uid);
-                                this.addedCandidates.push(this.candidate);
-                                
+                                this.addedCandidate = this.candidate + ' invited';
+                                setTimeout(() => {this.addedCandidate = ''}, 3000)
                                 // add addded applicant to store
                                 let applicants = this.$store.state.applicants
                                 applicants.push(user)
@@ -75,13 +76,16 @@ export default {
                                     linkRef.doc(doc.id).update({ docId: doc.id })
                                 })
                             this.links.push(this.candidate);
+                            // add invite to store (applicants)
+                            let applicants = this.$store.state.applicants
+                            applicants.push(this.candidate)
+                            this.$store.commit("set_applicants", applicants)
+                            this.addedCandidate = this.candidate + ' invited';
+                            firebase.auth().sendSignInLinkToEmail(this.candidate, actionCodeSettings);
+                        } else {
+                            this.addedCandidate = this.candidate + ' invited again';
+                            firebase.auth().sendSignInLinkToEmail(this.candidate, actionCodeSettings);
                         }
-                        firebase.auth().sendSignInLinkToEmail(this.candidate, actionCodeSettings);
-                        this.addedCandidates.push(this.candidate);
-                        // add invite to store (applicants)
-                        let applicants = this.$store.state.applicants
-                        applicants.push(this.candidate)
-                        this.$store.commit("set_applicants", applicants)
                         // reset v-model
                         this.candidate = '';
                     }
@@ -104,8 +108,27 @@ export default {
     button {
         padding: 10px;
         margin-left: 10px;
+        background-color: deepskyblue;
+        color: white;
+        border: 0px;
     }
     p {
         color: rgb(0, 190, 0);
+    }
+    @media only screen and (max-width: 768px) {
+        #all {
+            text-align: left;
+            margin: 20px 50px;
+        }
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+            margin-left: 0px;
+        }
+    
     }
 </style>

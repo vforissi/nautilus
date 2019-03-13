@@ -93,13 +93,13 @@ export default {
         border: 1px solid #f7f7f7;
     }
     .score {
-        font-size:40px;
+        font-size: 40px;
     }
     .empty {
-        padding: 150px;
+        padding: 150px 0px;
     }
     .empty h3 {
-        padding: 10px;
-        margin: 40px;
+        padding: 0px;
+        margin: 40px 20px;
     }
 </style>

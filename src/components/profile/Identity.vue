@@ -1,18 +1,20 @@
 <template>
     <div>
         <h1>Identity</h1>
-        <div v-if="!editable" class="box">
-            <img alt="Profile Picture" :src="img"/>
-            <div class="text_facts">    
+        <div v-if="!editable" class="box filled">
+            <img v-if="!img" alt="Profile Picture" src="@/assets/pp-icon.png"/>
+            <img v-else alt="Profile Picture" :src="img"/>
+            <div v-if="identity.Name" class="text_facts">    
                 <div v-for="(item, index) in identityModel" :key="index">
                     <p v-if="identity[item]">{{item}} : {{identity[item]}}</p>
                 </div>
             </div>
         </div>
         <div v-if="editable" class="box">
-            <img alt="Profile Picture" :src="img"/>
+            <img v-if="!img" alt="Profile Picture" src="@/assets/pp-icon.png"/>
+            <img v-else alt="Profile Picture" :src="img"/>
             <b-form-file
-                v-if="img === img/*'@/assets/pp-icon.png'*/"
+                v-if="!img"
                 v-model="file"
                 :state="Boolean(file)"
                 placeholder="Choose a file..."
@@ -45,7 +47,7 @@ export default {
             identity: {'Name': '', 'Age': '', 'Height': '', 'Weight': '', 'Ethnicity': '', 'Nationality': '', 'Gender': '', 'Orientation': '' },
             identityModel: ['Name', 'Age', 'Height', 'Weight', 'Ethnicity', 'Nationality', 'Gender', 'Orientation' ],
             msg: false,
-            img: '@/assets/pp-icon.png',
+            img: "",
             file: ''
         }
     },
@@ -121,11 +123,11 @@ export default {
 <style scoped>
     .form_file {
         flex: 2;
-        width: 40%;
+        width: 80%;
     }
     img {
         flex: 1;
-        padding: 5px 10px;
+        padding: 10px 10px;
         margin: 20px 60px;
         max-width: 20%; 
         height: auto;
@@ -139,7 +141,6 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-
         padding: 10px;
         width: 100%;
         background-color: #f7f7f7;
@@ -160,20 +161,51 @@ export default {
     .text_facts {
         background-color: white;
         padding: 20px 50px;
-        margin: 10px 0px 30px;
+        margin: 20px 0px 30px;
     }
     input {
-        width: 18%;
+        width: 50%;
         margin: 5px;
     }
     button {
         padding: 2px 40px;
         margin: 5px;
         text-align: center;
+        color: white;
+        border: 0px;
+        background-color: deepskyblue;
     }
     .saved_msg {
         color: rgb(0, 190, 0);
         margin: 5px;
 
     }
+
+@media only screen and (max-width: 768px) {
+    img {
+        flex: 1;
+        padding: 10px 10px;
+        margin: 20px 60px;
+        max-width: 60%; 
+        height: auto;
+        border: 1px solid lightgrey;
+        background-color: white;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .filled {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .form_file {
+        flex: 2;
+        width: 40%;
+    }
+    input {
+        width: 18%;
+        margin: 5px;
+    }
+}
 </style>

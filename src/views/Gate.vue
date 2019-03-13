@@ -26,14 +26,6 @@ export default {
 </script>
 
 <style scoped>
-    .view {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        
-        height: 100vh;
-        background-color: #f7f7f7
-    }
     .pres {
         flex: 2;
         display: flex;
@@ -42,6 +34,7 @@ export default {
         justify-content: center;
         background-color: white;
         height: 100%;
+        width: 100%;
     }
     .logo {
         flex: 1;
@@ -62,12 +55,27 @@ export default {
     }
     h4 {
         flex: 4;
-        width: 60%;
-        text-align: justify;
-        margin-top: 100px;
+        width: 80%;
+        margin: 100px;
+        text-align: left;
+
     }
     .forms {
         flex: 1;
         height: 100%;
+        width: 100%;
     }
+    @media only screen and (min-width: 768px) {
+    .view {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        height: 1000px;
+        width: 100%;
+        background-color: #f7f7f7
+    }
+    h4 {
+        width: 70%;
+    }
+}
 </style>

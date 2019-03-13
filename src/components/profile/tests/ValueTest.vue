@@ -6,8 +6,7 @@
                     //quest[stage]
                     list[stage].title
                     }}</p>
-                <div class="levels">  
-
+                <div class="levels">
                     <draggable
                         class="list-group"
                         tag="ul"
@@ -99,8 +98,13 @@ export default {
     },
     methods: {
         prev: function () {
-            if (this.stage > 0)
+            const valueResRef = firebase.firestore().collection("valueRes");
+
+            if (this.stage > 0) {
                 this.stage--;
+                valueResRef.doc(this.uid).update({ stage: this.stage });
+            }
+            
         },
         save: function () {
             const valueResRef = firebase.firestore().collection("valueRes");
@@ -165,13 +169,13 @@ export default {
     }
     .text {
         text-align: justify;
-        padding: 10px;
-        margin: 10px 30px;
+        padding: 0px 10px;
+        margin: 0px 30px;
     }
     .levels {
         display: flex;
         justify-content: center;
-        margin: 20px 20px 50px;
+        margin: 0px 20px;
     }
     
 </style>

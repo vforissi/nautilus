@@ -3,12 +3,12 @@
         <h3>Create an account</h3>
         <p class="mb-2">Want to use Nautilus ? Who are you ?</p>
         <div v-if="type === 'institution'" class="nav">
-            <span class="type selected">Institution</span>
-            <span class="type" @click="type='candidate'">Candidate</span>
+            <span class="type selected">Company</span>
+            <span class="type" @click="type='candidate'">Applicant</span>
         </div>
         <div v-if="type === 'candidate' " class="nav">
             <span class="type" @click="type='institution'">Company</span>
-            <span class="type selected">User</span>
+            <span class="type selected">Applicant</span>
         </div>
         <input v-if="type === 'candidate'" type="text" v-model="name" placeholder="Name">
         <input v-if="type === 'institution'" type="text" v-model="name" placeholder="Company">
@@ -17,14 +17,14 @@
         <button @click="signUp">Sign Up</button>
         <br>
         <b-button class="modalButton" @click="showModal">Get called by our team</b-button>
-        <b-modal ref="myModalRef" hide-footer title="Put in your phone number">
+        <b-modal ref="myModalRef" hide-footer title="Call us for any reason">
             <div class="d-block text-center">
-            <VueTelInput 
-                v-model="phone"
-                :preferredCountries="['us', 'gb', 'fr']"
-            />
+                <VueTelInput 
+                    v-model="phone"
+                    :preferredCountries="['us', 'gb', 'fr']"
+                />
             </div>
-            <b-button class="mt-3" variant="success" block @click="hideModal">Request call</b-button>
+            <button class="call_button" block @click="hideModal">Request call</button>
         </b-modal>
     </div>
 </template>
@@ -84,6 +84,7 @@ export default {
 </script>
 
 <style scoped>
+    
     .modalButton {
         background-color: transparent;
         border-color: transparent;
@@ -98,22 +99,35 @@ export default {
         color: grey;
     }
     .sign-up {
-        margin-top: 20px;
-        padding-top: 10px;
+        margin-top: 10px;
+        padding-top: 5px;
     }
     input {
-        margin: 10px 0;
-        width: 300px;
-        padding: 10px;
+        margin: 5px 0;
+        width: 70%;
+        padding: 5px;
     }
     button {
         padding: 3px 20px;
-        margin: 10px;
+        margin: 5px 10px 5px;
+        background-color: deepskyblue;
+        border-radius: 5px;
+        color: white;
+        border: 0px;
+    }
+    .call_button {
+        width: 100%;
+        margin: 0px;
+        margin-top: 10px;
+    }
+    .call_button:hover {
+        background-color: rgb(0, 164, 219);
     }
     .nav {
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 10px;
     }
 
     .nav span {
@@ -122,7 +136,7 @@ export default {
         border: 1px solid deepskyblue;
         background-color: white;
         padding: 10px 30px;
-        width: 150px;
+        width: 145px;
         cursor: pointer;
     }
 
@@ -130,4 +144,18 @@ export default {
         color: white;
         background-color: deepskyblue;
     }
+@media only screen and (max-width: 768px) {
+    .nav {
+        margin: 30px 0px 20px;
+    }
+    .sign-up {
+        margin-top: 50px;
+    }
+    button {
+        margin-top: 20px;
+    }
+    .modalButton {
+        margin-bottom: 30px;
+    }
+}
 </style>
