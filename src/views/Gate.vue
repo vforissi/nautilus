@@ -70,7 +70,7 @@ export default {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        height: 1000px;
+        height: 800px;
         width: 100%;
         background-color: #f7f7f7
     }

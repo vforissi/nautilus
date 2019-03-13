@@ -136,7 +136,7 @@ export default {
         border: 1px solid deepskyblue;
         background-color: white;
         padding: 10px 30px;
-        width: 145px;
+        width: 35%;
         cursor: pointer;
     }
 

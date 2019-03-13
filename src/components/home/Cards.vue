@@ -1,6 +1,7 @@
 <template>
     <div>
         <h3>Applicant List</h3>
+        <h3 v-if="!applicants.length"><strong>You haven't added any applicant yet.</strong></h3>
         <div v-for="(applicant, index) in applicants" :key="index" @click="openProfile(applicant)">
             <div v-if="typeof applicant === 'object'" class="card">
                 <img v-if="!applicant.imgUrl" alt="Profile Picture" src="@/assets/pp-icon.png"/>
